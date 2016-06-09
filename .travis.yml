@@ -25,18 +25,11 @@ matrix:
       sudo: required
       language: generic
       before_install:
-        - wget -q -O - https://swift.org/keys/all-keys.asc | gpg --import -
-        - cd ..
-        - export SWIFT_VERSION=swift-DEVELOPMENT-SNAPSHOT-2016-05-09-a
-        - wget https://swift.org/builds/development/ubuntu1404/$SWIFT_VERSION/$SWIFT_VERSION-ubuntu14.04.tar.gz
-        - tar xzf $SWIFT_VERSION-ubuntu14.04.tar.gz
-        - export PATH="${PWD}/${SWIFT_VERSION}-ubuntu14.04/usr/bin:${PATH}"
-        - export SWIFT_RELEASE_VERSION=2.2.1
-        - export SWIFT_RELEASE_NAME="${SWIFT_RELEASE_VERSION}-RELEASE"
-        - wget https://swift.org/builds/swift-$SWIFT_RELEASE_VERSION-release/ubuntu1404/swift-$SWIFT_RELEASE_NAME/swift-$SWIFT_RELEASE_NAME-ubuntu14.04.tar.gz 
-        - tar xzf swift-$SWIFT_RELEASE_NAME-ubuntu14.04.tar.gz
-        - export SWIFT_EXEC="${PWD}/swift-${SWIFT_RELEASE_NAME}-ubuntu14.04/usr/bin/swiftc"
-        - cd $MODULE_NAME
+        - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
+        - swiftenv install 2.2.1 && swiftenv local 2.2.1
+        - export SWIFT_EXEC="$(swiftenv which swiftc)"
+        - export SWIFT_VERSION=DEVELOPMENT-SNAPSHOT-2016-05-09-a
+        - swiftenv install $SWIFT_VERSION && swiftenv local $SWIFT_VERSION
 
 notifications:
   email: false
