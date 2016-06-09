@@ -20,6 +20,7 @@ matrix:
       language: objective-c
     - script:
         - swift build
+        - swift test
       os: linux
       dist: trusty
       sudo: required
